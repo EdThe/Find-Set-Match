@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="ViewCell">
+        <attr name="num" format="integer" />
+        <attr name="shapeColor" format="color" />
+        <attr name="Shape" format="string"></attr>
+        <attr name="backGroundColor" format="color"></attr>
+    </declare-styleable>
+</resources>

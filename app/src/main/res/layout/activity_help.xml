@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="genius.gyulhap.HelpActivity">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="22dp">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:textAlignment="center"
+                android:text="Each cells in the grids have 3 caracteristics: a background color, a shape and color for said shape."
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/textView3"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="150dp"
+                android:id="@+id/viewCell" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textAlignment="center"
+                android:layout_below="@+id/viewCell"
+                android:text="A 'Combo' happens when all characteristics of 3 cells are all distinct or similar. This means that the color for the background of all 3 cells must be the same or different, and at the same time all shapes must be the same or unique, while the color of those shapes are also the same or distinct.
+Here are some examples:" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/textView4"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:id="@+id/combo1Part1" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/textView4"
+                android:layout_alignLeft="@id/combo1Part1"
+                android:layout_marginLeft="80dp"
+                android:id="@+id/combo1Part2" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/textView4"
+                android:layout_alignLeft="@id/combo1Part2"
+                android:layout_marginLeft="80dp"
+                android:id="@+id/combo1Part3" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/combo1Part1"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:id="@+id/combo2Part1" />
+
+            <ImageView
+                android:id="@+id/combo1Result"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignLeft="@id/combo1Part3"
+                android:layout_marginLeft="100dp"
+                android:layout_alignBottom="@id/combo1Part1"
+                android:layout_marginBottom="30dp"
+                app:srcCompat="@drawable/correcttransparent" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/combo1Part1"
+                android:layout_alignLeft="@id/combo2Part1"
+                android:layout_marginLeft="80dp"
+                android:id="@+id/combo2Part2" />
+
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/combo1Part1"
+                android:layout_alignLeft="@id/combo2Part2"
+                android:layout_marginLeft="80dp"
+                android:id="@+id/combo2Part3" />
+
+            <ImageView
+                android:id="@+id/combo2Result"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignLeft="@id/combo2Part3"
+                android:layout_marginLeft="100dp"
+                android:layout_alignBottom="@id/combo2Part1"
+                android:layout_marginBottom="30dp"
+                app:srcCompat="@drawable/correcttransparent" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/combo2Part1"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:id="@+id/combo3Part1" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/combo2Part1"
+                android:layout_alignLeft="@id/combo3Part1"
+                android:layout_marginLeft="80dp"
+                android:id="@+id/combo3Part2" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/combo2Part1"
+                android:layout_alignLeft="@id/combo3Part2"
+                android:layout_marginLeft="80dp"
+                android:id="@+id/combo3Part3" />
+
+            <ImageView
+                android:id="@+id/combo3Result"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignLeft="@id/combo3Part3"
+                android:layout_marginLeft="100dp"
+                android:layout_alignBottom="@id/combo3Part1"
+                android:layout_marginBottom="30dp"
+                app:srcCompat="@drawable/correcttransparent" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/combo3Part1"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:id="@+id/combo4Part1" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/combo3Part1"
+                android:layout_alignLeft="@id/combo4Part1"
+                android:layout_marginLeft="80dp"
+                android:id="@+id/combo4Part2" />
+
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/combo3Part1"
+                android:layout_alignLeft="@id/combo4Part2"
+                android:layout_marginLeft="80dp"
+                android:id="@+id/combo4Part3" />
+
+            <ImageView
+                android:id="@+id/combo4Result"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignLeft="@id/combo4Part3"
+                android:layout_marginLeft="100dp"
+                android:layout_alignBottom="@id/combo4Part1"
+                android:layout_marginBottom="30dp"
+                app:srcCompat="@drawable/incorrecttransparentp1" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:textAlignment="center"
+                android:text="If you think there are no more 'Combos', then the grid is complete and you should press the button indicating this. Being correct nets you 3 point, while being wrong takes away 1 point. Also, getting a correct 'Combo' gets you 1 point, while being incorrect takes away 1 point.\n\nBest of luck!"
+                android:layout_below="@+id/combo4Part1"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+    </ScrollView>
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="backButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:srcCompat="?attr/homeAsUpIndicator" />
+
+</RelativeLayout>

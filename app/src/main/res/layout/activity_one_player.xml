@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <GridLayout
+        android:id="@+id/hapGrid"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:columnCount="3"
+        android:rowCount="3"
+        android:layout_marginTop="34dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+
+
+        <genius.gyulhap.ViewCell
+            android:id="@+id/one"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            custom:num = "7"/>
+        <genius.gyulhap.ViewCell
+            android:id="@+id/two"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            custom:num = "8"/>
+        <genius.gyulhap.ViewCell
+            android:id="@+id/three"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            custom:num = "9"/>
+        <genius.gyulhap.ViewCell
+            android:id="@+id/four"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            custom:num= "4"/>
+        <genius.gyulhap.ViewCell
+            android:id="@+id/five"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            custom:num = "5"/>
+        <genius.gyulhap.ViewCell
+            android:id="@+id/six"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            custom:num = "6"/>
+        <genius.gyulhap.ViewCell
+            android:id="@+id/seven"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            custom:num = "1"/>
+
+        <genius.gyulhap.ViewCell
+            android:id="@+id/eight"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            custom:num="2" />
+
+        <genius.gyulhap.ViewCell
+            android:id="@+id/nine"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            custom:num = "3"/>
+
+    </GridLayout>
+
+
+    <Button
+        android:id="@+id/buttonP1"
+        android:layout_width="88dp"
+        android:layout_height="wrap_content"
+        android:onClick="clickIt"
+        android:text="Combo!"
+        android:layout_alignTop="@+id/correctOrNot"
+        android:layout_alignRight="@+id/hapGrid"
+        android:layout_alignEnd="@+id/hapGrid" />
+
+    <TextView
+        android:id="@+id/record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Record: 0"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/buttonP1"
+        android:layout_alignStart="@+id/buttonP1" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Score: 0"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/gyulP1"
+        android:layout_marginRight="10dp"/>
+
+    <Button
+        android:id="@+id/gyulP1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="gyulThatShit"
+        android:text="Complete"
+        android:layout_alignBaseline="@+id/buttonP1"
+        android:layout_alignBottom="@+id/buttonP1"
+        android:layout_alignLeft="@+id/answers"
+        android:layout_alignStart="@+id/answers" />
+
+    <GridLayout
+        android:id="@+id/answers"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:columnCount="6"
+        android:rowCount="3"
+        android:layout_below="@+id/hapGrid"
+        android:layout_alignLeft="@+id/hapGrid"
+        android:layout_alignStart="@+id/hapGrid"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp">
+
+    </GridLayout>
+
+    <ImageView
+        android:id="@+id/correctOrNot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        custom:srcCompat="@drawable/incorrecttransparentp1"
+        android:layout_below="@+id/answers"
+        android:layout_centerHorizontal="true"/>
+
+    <genius.gyulhap.TimeCircle
+        android:id="@+id/timer"
+        android:layout_width="50dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/correctOrNot"
+        android:layout_centerHorizontal="true" />
+
+    <genius.gyulhap.GridOrder
+        android:id="@+id/hapChoices"
+        android:layout_width="120dp"
+        android:layout_height="30dp"
+        android:columnCount="3"
+        android:rowCount="1"
+        android:layout_below="@+id/timer"
+        android:layout_toLeftOf="@+id/buttonP1"
+        android:layout_toStartOf="@+id/buttonP1"
+        android:layout_marginTop="14dp">
+
+        <genius.gyulhap.UnderscoreView
+            android:layout_width="40dp"
+            android:layout_height="30dp" />
+
+        <genius.gyulhap.UnderscoreView
+            android:layout_width="40dp"
+            android:layout_height="30dp" />
+
+        <genius.gyulhap.UnderscoreView
+            android:layout_width="40dp"
+            android:layout_height="30dp" />
+    </genius.gyulhap.GridOrder>
+
+
+    <TextView
+        android:id="@+id/timeLeftSurrounding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Time Left: "
+        android:layout_alignBaseline="@+id/timeLeft"
+        android:layout_alignBottom="@+id/timeLeft"
+        android:layout_toLeftOf="@+id/timeLeft"
+        android:layout_toStartOf="@+id/timeLeft" />
+
+    <TextView
+        android:id="@+id/timeLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1:00"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/timer"
+        android:layout_alignEnd="@+id/timer"
+        android:layout_marginTop="11dp" />
+
+    <TextView
+        android:id="@+id/gyulGood"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:text="Not Complete!"
+        android:textColor="@color/colorAccent"
+        android:layout_marginRight="8dp"
+        android:layout_alignEnd="@+id/hapChoices"
+        android:layout_alignRight="@+id/hapChoices"
+        android:layout_alignBottom="@+id/hapChoices"/>
+
+
+</RelativeLayout>
