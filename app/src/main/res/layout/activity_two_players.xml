@@ -30,15 +30,15 @@
         android:textSize="37dp"
         android:textColor="@color/colorPrimary"
         android:layout_above="@+id/correctOrNot"
-        android:layout_alignRight="@+id/gyulP1"
-        android:layout_alignEnd="@+id/gyulP1"
+        android:layout_alignRight="@+id/completeP1"
+        android:layout_alignEnd="@+id/completeP1"
         custom:layout_constraintLeft_toLeftOf="parent"
-        custom:layout_constraintTop_toBottomOf="@+id/hapGrid"
+        custom:layout_constraintTop_toBottomOf="@+id/grid"
         android:layout_marginLeft="8dp" />
 
 
     <GridLayout
-        android:id="@+id/hapGrid"
+        android:id="@+id/grid"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center"
@@ -109,7 +109,7 @@
 
 
     <Button
-        android:id="@+id/buttonP2"
+        android:id="@+id/comboP2"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:rotation="180"
@@ -125,14 +125,14 @@
         android:layout_marginStart="16dp" />
 
     <Button
-        android:id="@+id/buttonP1"
+        android:id="@+id/comboP1"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:onClick="clickIt"
         android:text="Combo!"
         android:layout_above="@+id/timer2"
-        android:layout_alignLeft="@+id/gyulP1"
-        android:layout_alignStart="@+id/gyulP1"
+        android:layout_alignLeft="@+id/completeP1"
+        android:layout_alignStart="@+id/completeP1"
         custom:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
@@ -164,11 +164,11 @@
         android:rotation="180"
         android:text="0"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/buttonP2"
-        android:layout_alignEnd="@+id/buttonP2"
+        android:layout_alignRight="@+id/comboP2"
+        android:layout_alignEnd="@+id/comboP2"
         custom:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
-        custom:layout_constraintLeft_toRightOf="@+id/buttonP2"
+        custom:layout_constraintLeft_toRightOf="@+id/comboP2"
         android:layout_marginLeft="76dp"
         android:layout_marginStart="76dp" />
 
@@ -178,8 +178,8 @@
         android:layout_height="wrap_content"
         android:text="0"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/gyulP1"
-        android:layout_alignStart="@+id/gyulP1"
+        android:layout_alignLeft="@+id/completeP1"
+        android:layout_alignStart="@+id/completeP1"
         custom:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="16dp"
         custom:layout_constraintLeft_toRightOf="@+id/textView"
@@ -187,13 +187,13 @@
         android:layout_marginStart="29dp" />
 
     <Button
-        android:id="@+id/gyulP2"
+        android:id="@+id/completeP2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:rotation="180"
-        android:onClick="gyulThatShit"
+        android:onClick="completePressed"
         android:text="Complete"
-        android:layout_alignTop="@+id/hapGrid"
+        android:layout_alignTop="@+id/grid"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginRight="16dp"
@@ -203,14 +203,14 @@
         android:layout_marginEnd="16dp" />
 
     <Button
-        android:id="@+id/gyulP1"
+        android:id="@+id/completeP1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="gyulThatShit"
+        android:onClick="completePressed"
         android:text="Complete"
         android:layout_alignTop="@+id/turnP1"
-        android:layout_toRightOf="@+id/hapGrid"
-        android:layout_toEndOf="@+id/hapGrid"
+        android:layout_toRightOf="@+id/grid"
+        android:layout_toEndOf="@+id/grid"
         android:layout_marginLeft="16dp"
         custom:layout_constraintLeft_toLeftOf="parent"
         custom:layout_constraintBottom_toBottomOf="parent"
@@ -224,9 +224,9 @@
         custom:srcCompat="@drawable/incorrecttransparentp1"
         android:layout_above="@+id/textView"
         android:layout_centerHorizontal="true"
-        custom:layout_constraintRight_toLeftOf="@+id/buttonP1"
+        custom:layout_constraintRight_toLeftOf="@+id/comboP1"
         android:layout_marginRight="8dp"
-        custom:layout_constraintLeft_toRightOf="@+id/gyulP1"
+        custom:layout_constraintLeft_toRightOf="@+id/completeP1"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -241,9 +241,9 @@
         custom:srcCompat="@drawable/incorrecttransparentp1"
         android:layout_above="@+id/textView"
         android:layout_centerHorizontal="true"
-        custom:layout_constraintRight_toLeftOf="@+id/buttonP2"
+        custom:layout_constraintRight_toLeftOf="@+id/comboP2"
         android:layout_marginRight="8dp"
-        custom:layout_constraintLeft_toRightOf="@+id/gyulP2"
+        custom:layout_constraintLeft_toRightOf="@+id/completeP2"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -259,12 +259,12 @@
         android:text="PLAYER 2"
         android:gravity="top"
         android:textColor="@color/colorAccent"
-        android:layout_alignTop="@+id/gyulP2"
+        android:layout_alignTop="@+id/completeP2"
         android:layout_alignLeft="@+id/answers2"
         android:layout_alignStart="@+id/answers2"
         android:layout_marginRight="16dp"
         custom:layout_constraintRight_toRightOf="parent"
-        custom:layout_constraintBottom_toTopOf="@+id/hapGrid"
+        custom:layout_constraintBottom_toTopOf="@+id/grid"
         android:layout_marginEnd="16dp" />
 
     <genius.gyulhap.TimeCircle
@@ -289,10 +289,10 @@
         android:rowCount="14"
         android:layout_marginLeft="20dp"
         custom:layout_constraintLeft_toLeftOf="parent"
-        custom:layout_constraintRight_toLeftOf="@+id/hapGrid"
+        custom:layout_constraintRight_toLeftOf="@+id/grid"
         custom:layout_constraintHorizontal_bias="1.0"
         android:layout_marginStart="10dp"
-        custom:layout_constraintBottom_toBottomOf="@+id/hapGrid">
+        custom:layout_constraintBottom_toBottomOf="@+id/grid">
 
     </GridLayout>
 
@@ -309,15 +309,15 @@
         android:rowCount="14"
         android:layout_marginRight="20dp"
         custom:layout_constraintRight_toRightOf="parent"
-        custom:layout_constraintLeft_toRightOf="@+id/hapGrid"
+        custom:layout_constraintLeft_toRightOf="@+id/grid"
         custom:layout_constraintHorizontal_bias="0.0"
         android:layout_marginEnd="10dp"
-        custom:layout_constraintTop_toTopOf="@+id/hapGrid">
+        custom:layout_constraintTop_toTopOf="@+id/grid">
 
     </GridLayout>
 
     <genius.gyulhap.GridOrder
-        android:id="@+id/hapChoicesP2"
+        android:id="@+id/comboChoicesP2"
         android:layout_width="120dp"
         android:layout_height="30dp"
         android:layout_marginBottom="-10dp"
@@ -342,7 +342,7 @@
     </genius.gyulhap.GridOrder>
 
     <genius.gyulhap.GridOrder
-        android:id="@+id/hapChoicesP1"
+        android:id="@+id/comboChoicesP1"
         android:layout_width="120dp"
         android:layout_height="30dp"
         android:layout_marginBottom="0dp"
@@ -389,7 +389,7 @@
         custom:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
-        android:id="@+id/gyulGoodP1"
+        android:id="@+id/correctCompleteP1"
         android:visibility="invisible"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
@@ -397,12 +397,12 @@
         android:textSize="20dp"
         android:text="Not Complete!"
         android:layout_marginRight="8dp"
-        custom:layout_constraintRight_toRightOf="@+id/hapChoicesP1"
-        custom:layout_constraintTop_toTopOf="@+id/hapChoicesP1"
-        custom:layout_constraintBottom_toBottomOf="@+id/hapChoicesP1"/>=/>
+        custom:layout_constraintRight_toRightOf="@+id/comboChoicesP1"
+        custom:layout_constraintTop_toTopOf="@+id/comboChoicesP1"
+        custom:layout_constraintBottom_toBottomOf="@+id/comboChoicesP1"/>=/>
 
     <TextView
-        android:id="@+id/gyulGoodP2"
+        android:id="@+id/correctCompleteP2"
         android:visibility="invisible"
         android:rotation="180"
         android:layout_width="100dp"
@@ -411,7 +411,7 @@
         android:textSize="20dp"
         android:text="Not Complete!"
         android:layout_marginLeft="8dp"
-        custom:layout_constraintLeft_toLeftOf="@+id/hapChoicesP2"
-        custom:layout_constraintTop_toTopOf="@+id/hapChoicesP2"
-        custom:layout_constraintBottom_toBottomOf="@+id/hapChoicesP2"/>=/>
+        custom:layout_constraintLeft_toLeftOf="@+id/comboChoicesP2"
+        custom:layout_constraintTop_toTopOf="@+id/comboChoicesP2"
+        custom:layout_constraintBottom_toBottomOf="@+id/comboChoicesP2"/>=/>
 </android.support.constraint.ConstraintLayout>

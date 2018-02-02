@@ -6,14 +6,12 @@ import android.app.ActionBar;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.GridLayout;
@@ -21,38 +19,46 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class TwoPlayers extends AppCompatActivity {
 
-    int ansCount;
-    String next = null;
-    int timePassed = 0;
-    int untilTime = 0;
-    CountDownTimer cdt = null;
-    int roundNumber = 1;
-    int endRound = 3;
-    AlertDialog.Builder builder;
+    //AlertDialogs
+    AlertDialog.Builder preMatchAlert;
     AlertDialog.Builder pause;
     AlertDialog alertDialog;
-    ArrayList<Integer> hapTry = new ArrayList<>();
+
+    //Grids and other variables around combos and completing
+    ArrayList<Integer> comboContent = new ArrayList<>();
     Grid g;
-    boolean hapTrying = false;
+    private GridLayout gridLayout;
+    boolean tryingCombo = false;
     GridLayout answers;
     GridLayout answers2;
     boolean player1Turn = false;
-    Handler timerSystem;
-    TimeCircle timer;
     boolean allowed = true;
-    boolean gyuling = false;
-    Handler circling;
-    long duration = 5000;
+    boolean tryingComplete = false;
+    int ansCount;
+    int roundNumber = 1;
+    int endRound = 3;
+
+    //Sounds and music
     MediaPlayer turnSound;
     MediaPlayer wrongSound;
     MediaPlayer rightSound;
     MediaPlayer music;
 
+    //Handlers and other variables related to Runnables
+    String next = null;
+    int timePassed = 0;
+    int untilTime = 0;
+    CountDownTimer cdt = null;
+    Handler timerSystem;
+    TimeCircle timer;
+    Handler circling;
+    long duration = 5000;
+
+    //ALL RUNNABLES
     //The runnable that changes the progress circle of the timer
     Runnable circleStyle = new Runnable() {
         @Override
@@ -67,51 +73,54 @@ public class MainActivity extends AppCompatActivity {
     Runnable turnChange = new Runnable() {
         public void run() {
             player1Turn = !player1Turn;
+
             //Makes all possibly visible UnderscoreViews and Images invisible
-            (findViewById(R.id.hapChoicesP1)).setVisibility(View.INVISIBLE);
-            (findViewById(R.id.hapChoicesP2)).setVisibility(View.INVISIBLE);
-            findViewById(R.id.gyulGoodP1).setVisibility(View.INVISIBLE);
-            findViewById(R.id.gyulGoodP2).setVisibility(View.INVISIBLE);
+            (findViewById(R.id.comboChoicesP1)).setVisibility(View.INVISIBLE);
+            (findViewById(R.id.comboChoicesP2)).setVisibility(View.INVISIBLE);
+            findViewById(R.id.correctCompleteP1).setVisibility(View.INVISIBLE);
+            findViewById(R.id.correctCompleteP2).setVisibility(View.INVISIBLE);
             circling.removeCallbacks(circleStyle);
             timer.setProgress(0);
             circling.post(circleStyle);
-            GridLayout grid = (GridLayout) findViewById(R.id.hapGrid);
+            GridLayout grid = (GridLayout) findViewById(R.id.grid);
+
             //Sets the chosen variable of all cells to false, in case a "Combo" was attempted
             for (int i = 0; i < 9; i++) {
                 if (((ViewCell) grid.getChildAt(i)).getChosen())
                     ((ViewCell) grid.getChildAt(i)).setChosen(false);
             }
+
             //Changes attributes of Views depending on whose turn it is
             if (player1Turn) {
                 timer = (TimeCircle) findViewById(R.id.timer2);
                 findViewById(R.id.turnP2).setAlpha((float) 0.3);
                 findViewById(R.id.turnP1).setAlpha((float) 1);
-                findViewById(R.id.buttonP2).setAlpha((float) 0.3);
-                findViewById(R.id.buttonP1).setAlpha((float) 1);
-                findViewById(R.id.gyulP2).setAlpha((float) 0.3);
-                findViewById(R.id.gyulP1).setAlpha((float) 1);
-                findViewById(R.id.gyulP2).setClickable(false);
-                findViewById(R.id.gyulP1).setClickable(true);
-                findViewById(R.id.buttonP2).setClickable(false);
-                findViewById(R.id.buttonP1).setClickable(true);
+                findViewById(R.id.comboP2).setAlpha((float) 0.3);
+                findViewById(R.id.comboP1).setAlpha((float) 1);
+                findViewById(R.id.completeP2).setAlpha((float) 0.3);
+                findViewById(R.id.completeP1).setAlpha((float) 1);
+                findViewById(R.id.completeP2).setClickable(false);
+                findViewById(R.id.completeP1).setClickable(true);
+                findViewById(R.id.comboP2).setClickable(false);
+                findViewById(R.id.comboP1).setClickable(true);
             } else {
                 timer = (TimeCircle) findViewById(R.id.timer);
                 findViewById(R.id.turnP1).setAlpha((float) 0.3);
                 findViewById(R.id.turnP2).setAlpha((float) 1);
-                findViewById(R.id.buttonP1).setAlpha((float) 0.3);
-                findViewById(R.id.buttonP2).setAlpha((float) 1);
-                findViewById(R.id.gyulP1).setAlpha((float) 0.3);
-                findViewById(R.id.gyulP2).setAlpha((float) 1);
-                findViewById(R.id.gyulP1).setClickable(false);
-                findViewById(R.id.gyulP2).setClickable(true);
-                findViewById(R.id.buttonP1).setClickable(false);
-                findViewById(R.id.buttonP2).setClickable(true);
+                findViewById(R.id.comboP1).setAlpha((float) 0.3);
+                findViewById(R.id.comboP2).setAlpha((float) 1);
+                findViewById(R.id.completeP1).setAlpha((float) 0.3);
+                findViewById(R.id.completeP2).setAlpha((float) 1);
+                findViewById(R.id.completeP1).setClickable(false);
+                findViewById(R.id.completeP2).setClickable(true);
+                findViewById(R.id.comboP1).setClickable(false);
+                findViewById(R.id.comboP2).setClickable(true);
             }
             findViewById(R.id.correctOrNotP1).setVisibility(View.INVISIBLE);
             findViewById(R.id.correctOrNotP2).setVisibility(View.INVISIBLE);
-            gyuling = false;
+            tryingComplete = false;
             allowed = true;
-            hapTrying = false;
+            tryingCombo = false;
             next = "turnChange";
             timer.setTurn(player1Turn);
 
@@ -165,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
             img.setImageResource(R.drawable.incorrecttransparentp1);
             img.setVisibility(View.VISIBLE);
             t.setText(String.valueOf(s));
-            hapTry.clear();
+            comboContent.clear();
             timerSystem.removeCallbacks(turnChange);
             allowed = false;
             next = "turnChange";
@@ -188,17 +197,16 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private GridLayout hapGrid;
 
     //Method for when "Combo" is pressed, starts countdown for choosing cells
     public void clickIt(View v) {
-        if (!hapTrying && !gyuling) {
-            hapTrying = true;
+        if (!tryingCombo && !tryingComplete) {
+            tryingCombo = true;
             allowed = true;
-            GridOrder choices = (GridOrder) findViewById(R.id.hapChoicesP1);
+            GridOrder choices = (GridOrder) findViewById(R.id.comboChoicesP1);
             choices.resetOrder(player1Turn);
             choices.setVisibility(View.VISIBLE);
-            choices = (GridOrder) findViewById(R.id.hapChoicesP2);
+            choices = (GridOrder) findViewById(R.id.comboChoicesP2);
             choices.resetOrder(player1Turn);
             choices.setVisibility(View.VISIBLE);
             timerSystem.removeCallbacks(turnChange);
@@ -224,15 +232,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //Is called when someone presses "Complete"
-    public void gyulThatShit(View v) {
-        if (!hapTrying && allowed && !gyuling) {
+    public void completePressed(View v) {
+        if (!tryingCombo && allowed && !tryingComplete) {
             circling.removeCallbacks(circleStyle);
             timerSystem.removeCallbacks(turnChange);
-            gyuling = true;
+            tryingComplete = true;
             TextView t = (player1Turn) ? ((TextView) findViewById(R.id.scoreP1)) : ((TextView) findViewById(R.id.scoreP2));
-            TextView gyulText1 = (TextView) findViewById(R.id.gyulGoodP1);
-            TextView gyulText2 = (TextView) findViewById(R.id.gyulGoodP2);
+            TextView gyulText1 = (TextView) findViewById(R.id.correctCompleteP1);
+            TextView gyulText2 = (TextView) findViewById(R.id.correctCompleteP2);
             int s = Integer.parseInt(t.getText().toString());
+
             //Happens if there are no more combos to find
             if (g.gyul()) {
                 s += 3;
@@ -242,10 +251,12 @@ public class MainActivity extends AppCompatActivity {
                 ImageView img = (player1Turn) ? (ImageView) findViewById(R.id.correctOrNotP1) : (ImageView) findViewById(R.id.correctOrNotP2);
                 img.setImageResource(R.drawable.correcttransparent);
                 img.setVisibility(View.VISIBLE);
+
                 //Changes the grid
                 next = "gridChange";
                 timerSystem.postDelayed(gridChange, 1500);
-            } else {
+            }
+            else {
                 s -= 1;
                 gyulText1.setText("Not Complete!");
                 gyulText2.setText("Not Complete!");
@@ -256,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
                 next = "turnChange";
                 timerSystem.postDelayed(turnChange, 1500);
             }
+
             //Shows in the player's color if they are correct
             gyulText1.setTextColor(getResources().getColor((player1Turn) ? R.color.colorPrimary : R.color.colorAccent));
             gyulText2.setTextColor(getResources().getColor((player1Turn) ? R.color.colorPrimary : R.color.colorAccent));
@@ -292,8 +304,8 @@ public class MainActivity extends AppCompatActivity {
             g.changeAll();
             Cell[] cells = g.getCells();
             for (int i = 0; i < cells.length; i++) {
-                ((ViewCell) hapGrid.getChildAt(i)).change(cells[6 - (6 * (i / 3)) + i]);
-                hapGrid.getChildAt(i).setOnClickListener(cellTouch);
+                ((ViewCell) gridLayout.getChildAt(i)).change(cells[6 - (6 * (i / 3)) + i]);
+                gridLayout.getChildAt(i).setOnClickListener(cellTouch);
             }
         }
     }
@@ -303,12 +315,12 @@ public class MainActivity extends AppCompatActivity {
         int p1Score = Integer.parseInt(((TextView) findViewById(R.id.scoreP1)).getText().toString());
         int p2Score = Integer.parseInt(((TextView) findViewById(R.id.scoreP2)).getText().toString());
         AlertDialog.Builder winScreen = new AlertDialog.Builder(this);
+
         //AlertDialog content depends on who wins
         if (p1Score > p2Score) {
             winScreen.setMessage("Player 1 has won the game with a score of " + p1Score + " to " + p2Score + " after round " + roundNumber + ".")
                     .setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            music.stop();
                             matchStart();
                         }
                     })
@@ -322,7 +334,6 @@ public class MainActivity extends AppCompatActivity {
             winScreen.setMessage("Player 2 has won the game with a score of " + p2Score + " to " + p1Score + " after round " + roundNumber + ".")
                     .setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            music.stop();
                             matchStart();
                         }
                     })
@@ -333,17 +344,12 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
         }
+
         //AlertDialog if there is a tie. Music change, and possibility of playing additionnal round
         else {
             if (roundNumber == endRound) {
                 music.stop();
-                music.reset();
-                try {
-                    AssetFileDescriptor overtimeafd = getAssets().openFd("overtimemusic.mp3");
-                    music.setDataSource(overtimeafd.getFileDescriptor());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                music = MediaPlayer.create(this, R.raw.overtimemusic);
                 music.start();
             }
             winScreen.setMessage("Both players have tied at " + p2Score + " points after round " + roundNumber + ".")
@@ -355,8 +361,8 @@ public class MainActivity extends AppCompatActivity {
                             g.changeAll();
                             Cell[] cells = g.getCells();
                             for (int i = 0; i < cells.length; i++) {
-                                ((ViewCell) hapGrid.getChildAt(i)).change(cells[6 - (6 * (i / 3)) + i]);
-                                hapGrid.getChildAt(i).setOnClickListener(cellTouch);
+                                ((ViewCell) gridLayout.getChildAt(i)).change(cells[6 - (6 * (i / 3)) + i]);
+                                gridLayout.getChildAt(i).setOnClickListener(cellTouch);
                             }
                             timerSystem.post(turnChange);
                         }
@@ -364,13 +370,6 @@ public class MainActivity extends AppCompatActivity {
                     .setNeutralButton("Play Again", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             music.stop();
-                            music.reset();
-                            try {
-                                AssetFileDescriptor multiafd = getAssets().openFd("multimusic.mp3");
-                                music.setDataSource(multiafd.getFileDescriptor());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
                             matchStart();
                         }
                     })
@@ -391,22 +390,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //Checks if the user is trying to do a combo
-            if (hapTrying && allowed) {
+            if (tryingCombo && allowed) {
                 ViewCell vx = (ViewCell) v;
                 //Adds the number to the combo
-                if (!hapTry.contains(vx.getNum())) {
-                    hapTry.add(vx.getNum());
-                    GridOrder choices = (GridOrder) findViewById(R.id.hapChoicesP1);
+                if (!comboContent.contains(vx.getNum())) {
+                    comboContent.add(vx.getNum());
+                    GridOrder choices = (GridOrder) findViewById(R.id.comboChoicesP1);
                     ((UnderscoreView) choices.getChildAt(choices.getOrderAt())).setNum(vx.getNum());
-                    choices = (GridOrder) findViewById(R.id.hapChoicesP2);
+                    choices = (GridOrder) findViewById(R.id.comboChoicesP2);
                     ((UnderscoreView) choices.getChildAt(choices.getOrderAt())).setNum(vx.getNum());
                     vx.setChosen(true);
                 }
                 //If this makes it the third cell of a combo, chekcs to see if it is correct
-                if (hapTry.size() == 3) {
+                if (comboContent.size() == 3) {
                     circling.removeCallbacks(circleStyle);
-                    java.util.Collections.sort(hapTry);
-                    String gottenHap = hapTry.get(0).toString() + hapTry.get(1).toString() + hapTry.get(2).toString();
+                    java.util.Collections.sort(comboContent);
+                    String gottenHap = comboContent.get(0).toString() + comboContent.get(1).toString() + comboContent.get(2).toString();
                     TextView t = (player1Turn) ? ((TextView) findViewById(R.id.scoreP1)) : ((TextView) findViewById(R.id.scoreP2));
                     int s = Integer.parseInt(t.getText().toString());
                     if (g.hap(gottenHap)) {
@@ -426,7 +425,7 @@ public class MainActivity extends AppCompatActivity {
                         img.setVisibility(View.VISIBLE);
                     }
                     t.setText(String.valueOf(s));
-                    hapTry.clear();
+                    comboContent.clear();
                     timerSystem.removeCallbacks(hapGuessingGame);
                     allowed = false;
                     next = "turnChange";
@@ -456,7 +455,7 @@ public class MainActivity extends AppCompatActivity {
         music.start();
         timerSystem.post(turnChange);
         g = new Grid();
-        GridLayout grid = (GridLayout) findViewById(R.id.hapGrid);
+        GridLayout grid = (GridLayout) findViewById(R.id.grid);
         int specialI;
         Cell[] cells = g.getCells();
         for (int i = 0; i < cells.length; i++) {
@@ -468,17 +467,21 @@ public class MainActivity extends AppCompatActivity {
 
     //Sets the game when the activity is created. Asks the user to press Ready when they are
     public void matchStart() {
+        if(!music.isPlaying()){
+            music = MediaPlayer.create(this, R.raw.multimusic);
+            music.start();
+        }
         roundNumber = 1;
         ((TextView) findViewById(R.id.roundCounterP1)).setText("Round 1 of " + endRound);
         ((TextView) findViewById(R.id.roundCounterP2)).setText("Round 1 of " + endRound);
-        GridLayout grid = (GridLayout) findViewById(R.id.hapGrid);
+        GridLayout grid = (GridLayout) findViewById(R.id.grid);
         for (int i = 0; i < 9; i++) {
             ((ViewCell) grid.getChildAt(i)).change(new Cell(Cell.Shape.RECTANGLE, Cell.Color.BLUE, Cell.Background.BLACK));
             grid.getChildAt(i).setOnClickListener(cellTouch);
         }
         ((TextView) findViewById(R.id.scoreP1)).setText("0");
         ((TextView) findViewById(R.id.scoreP2)).setText("0");
-        alertDialog = builder.create();
+        alertDialog = preMatchAlert.create();
         alertDialog.show();
     }
 
@@ -496,7 +499,7 @@ public class MainActivity extends AppCompatActivity {
             }
             circling.removeCallbacks(circleStyle);
             for (int i = 0; i < 9; i++) {
-                ((ViewCell) hapGrid.getChildAt(i)).setHiding(true);
+                ((ViewCell) gridLayout.getChildAt(i)).setHiding(true);
             }
             alertDialog = pause.create();
             alertDialog.show();
@@ -514,7 +517,7 @@ public class MainActivity extends AppCompatActivity {
             cdt.cancel();
             circling.removeCallbacks(circleStyle);
             for (int i = 0; i < 9; i++) {
-                ((ViewCell) hapGrid.getChildAt(i)).setHiding(true);
+                ((ViewCell) gridLayout.getChildAt(i)).setHiding(true);
             }
             alertDialog = pause.create();
             alertDialog.show();
@@ -525,7 +528,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_two_players);
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
@@ -547,7 +550,7 @@ public class MainActivity extends AppCompatActivity {
                             timerSystem.postDelayed(gridChange, untilTime - timePassed);
                         }
                         for (int i = 0; i < 9; i++) {
-                            ((ViewCell) hapGrid.getChildAt(i)).setHiding(false);
+                            ((ViewCell) gridLayout.getChildAt(i)).setHiding(false);
                         }
                         circling.post(circleStyle);
                         cdt = new CountDownTimer(untilTime - timePassed, 100) {
@@ -581,7 +584,7 @@ public class MainActivity extends AppCompatActivity {
                             timerSystem.postDelayed(gridChange, untilTime - timePassed);
                         }
                         for (int i = 0; i < 9; i++) {
-                            ((ViewCell) hapGrid.getChildAt(i)).setHiding(false);
+                            ((ViewCell) gridLayout.getChildAt(i)).setHiding(false);
                         }
                         circling.postDelayed(circleStyle, 50);
                         cdt = new CountDownTimer(untilTime - timePassed, 100) {
@@ -600,8 +603,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         //The AlertDialog used when matchStart() is called
-        builder = new AlertDialog.Builder(this);
-        builder.setMessage("Press when ready")
+        preMatchAlert = new AlertDialog.Builder(this);
+        preMatchAlert.setCancelable(false);
+        preMatchAlert.setMessage("Press when ready")
                 .setPositiveButton("Ready", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         readyNow();
@@ -627,7 +631,7 @@ public class MainActivity extends AppCompatActivity {
         ansCount = 0;
 
         endRound = sharedPreferences.getInt("round_last", 3);
-        hapGrid = (GridLayout) findViewById(R.id.hapGrid);
+        gridLayout = (GridLayout) findViewById(R.id.grid);
         timer = ((TimeCircle) findViewById(R.id.timer));
         timerSystem = new Handler();
         circling = new Handler();
@@ -635,8 +639,8 @@ public class MainActivity extends AppCompatActivity {
         answers2 = (GridLayout) findViewById(R.id.answers2);
         //Sets up the answer GridLayouts in order to show them from the bottom
         for (int i = 0; i < answers.getRowCount(); i++) {
-            answers.addView(new TextView(MainActivity.this));
-            answers2.addView(new TextView(MainActivity.this));
+            answers.addView(new TextView(TwoPlayers.this));
+            answers2.addView(new TextView(TwoPlayers.this));
             answers.getChildAt(i).setMinimumHeight(20);
             answers2.getChildAt(i).setMinimumHeight(20);
         }

@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <GridLayout
-        android:id="@+id/hapGrid"
+        android:id="@+id/grid"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center"
@@ -72,14 +72,14 @@
 
 
     <Button
-        android:id="@+id/buttonP1"
+        android:id="@+id/comboP1"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:onClick="clickIt"
         android:text="Combo!"
         android:layout_alignTop="@+id/correctOrNot"
-        android:layout_alignRight="@+id/hapGrid"
-        android:layout_alignEnd="@+id/hapGrid" />
+        android:layout_alignRight="@+id/grid"
+        android:layout_alignEnd="@+id/grid" />
 
     <TextView
         android:id="@+id/record"
@@ -87,8 +87,8 @@
         android:layout_height="wrap_content"
         android:text="Record: 0"
         android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/buttonP1"
-        android:layout_alignStart="@+id/buttonP1" />
+        android:layout_alignLeft="@+id/comboP1"
+        android:layout_alignStart="@+id/comboP1" />
 
     <TextView
         android:id="@+id/score"
@@ -96,17 +96,17 @@
         android:layout_height="wrap_content"
         android:text="Score: 0"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/gyulP1"
+        android:layout_alignRight="@+id/completeP1"
         android:layout_marginRight="10dp"/>
 
     <Button
-        android:id="@+id/gyulP1"
+        android:id="@+id/completeP1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="gyulThatShit"
+        android:onClick="completePressed"
         android:text="Complete"
-        android:layout_alignBaseline="@+id/buttonP1"
-        android:layout_alignBottom="@+id/buttonP1"
+        android:layout_alignBaseline="@+id/comboP1"
+        android:layout_alignBottom="@+id/comboP1"
         android:layout_alignLeft="@+id/answers"
         android:layout_alignStart="@+id/answers" />
 
@@ -117,9 +117,9 @@
         android:layout_gravity="center"
         android:columnCount="6"
         android:rowCount="3"
-        android:layout_below="@+id/hapGrid"
-        android:layout_alignLeft="@+id/hapGrid"
-        android:layout_alignStart="@+id/hapGrid"
+        android:layout_below="@+id/grid"
+        android:layout_alignLeft="@+id/grid"
+        android:layout_alignStart="@+id/grid"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp">
 
@@ -141,14 +141,14 @@
         android:layout_centerHorizontal="true" />
 
     <genius.gyulhap.GridOrder
-        android:id="@+id/hapChoices"
+        android:id="@+id/comboChoices"
         android:layout_width="120dp"
         android:layout_height="30dp"
         android:columnCount="3"
         android:rowCount="1"
         android:layout_below="@+id/timer"
-        android:layout_toLeftOf="@+id/buttonP1"
-        android:layout_toStartOf="@+id/buttonP1"
+        android:layout_toLeftOf="@+id/comboP1"
+        android:layout_toStartOf="@+id/comboP1"
         android:layout_marginTop="14dp">
 
         <genius.gyulhap.UnderscoreView
@@ -186,7 +186,7 @@
         android:layout_marginTop="11dp" />
 
     <TextView
-        android:id="@+id/gyulGood"
+        android:id="@+id/correctComplete"
         android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -194,9 +194,9 @@
         android:text="Not Complete!"
         android:textColor="@color/colorAccent"
         android:layout_marginRight="8dp"
-        android:layout_alignEnd="@+id/hapChoices"
-        android:layout_alignRight="@+id/hapChoices"
-        android:layout_alignBottom="@+id/hapChoices"/>
+        android:layout_alignEnd="@+id/comboChoices"
+        android:layout_alignRight="@+id/comboChoices"
+        android:layout_alignBottom="@+id/comboChoices"/>
 
 
 </RelativeLayout>

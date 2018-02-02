@@ -5,19 +5,16 @@ package genius.gyulhap;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
 
     //Starts up 2-player mode
     public void twoPlayerMode(View v){
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, TwoPlayers.class);
         startActivity(intent);
     }
 
