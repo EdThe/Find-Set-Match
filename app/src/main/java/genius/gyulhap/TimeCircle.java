@@ -44,13 +44,4 @@ public class TimeCircle extends View {
         return progress;
     }
 
-    //Sets which player's turn it is, to know how the circle should be rotated
-    public void setTurn(boolean p1Turn){
-        if(p1Turn){
-            startPos = 270;
-        }
-        else {
-            startPos = 90;
-        }
-    }
 }

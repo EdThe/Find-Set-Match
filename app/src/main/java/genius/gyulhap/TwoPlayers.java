@@ -122,7 +122,6 @@ public class TwoPlayers extends AppCompatActivity {
             allowed = true;
             tryingCombo = false;
             next = "turnChange";
-            timer.setTurn(player1Turn);
 
             //Starts turn timer again
             timerSystem.postDelayed(this, duration);
@@ -350,6 +349,8 @@ public class TwoPlayers extends AppCompatActivity {
             if (roundNumber == endRound) {
                 music.stop();
                 music = MediaPlayer.create(this, R.raw.overtimemusic);
+                music.setLooping(true);
+                music.setVolume(40, 40);
                 music.start();
             }
             winScreen.setMessage("Both players have tied at " + p2Score + " points after round " + roundNumber + ".")
@@ -452,7 +453,12 @@ public class TwoPlayers extends AppCompatActivity {
 
     //Called at the start of the game, when player presses "Ready" button. Sets the grid and starts the timer
     public void readyNow() {
-        music.start();
+        if(music==null || !music.isPlaying()){
+            music = MediaPlayer.create(this, R.raw.multimusic);
+            music.setLooping(true);
+            music.setVolume(40, 40);
+            music.start();
+        }
         timerSystem.post(turnChange);
         g = new Grid();
         GridLayout grid = (GridLayout) findViewById(R.id.grid);
@@ -467,10 +473,6 @@ public class TwoPlayers extends AppCompatActivity {
 
     //Sets the game when the activity is created. Asks the user to press Ready when they are
     public void matchStart() {
-        if(!music.isPlaying()){
-            music = MediaPlayer.create(this, R.raw.multimusic);
-            music.start();
-        }
         roundNumber = 1;
         ((TextView) findViewById(R.id.roundCounterP1)).setText("Round 1 of " + endRound);
         ((TextView) findViewById(R.id.roundCounterP2)).setText("Round 1 of " + endRound);
@@ -647,9 +649,6 @@ public class TwoPlayers extends AppCompatActivity {
         turnSound = MediaPlayer.create(this, R.raw.turnswitch);
         wrongSound = MediaPlayer.create(this, R.raw.bad);
         rightSound = MediaPlayer.create(this, R.raw.good);
-        music = MediaPlayer.create(this, R.raw.multimusic);
-        music.setLooping(true);
-        music.setVolume(40, 40);
         matchStart();
     }
 
