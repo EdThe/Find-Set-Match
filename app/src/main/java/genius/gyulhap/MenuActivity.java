@@ -49,6 +49,7 @@ public class MenuActivity extends AppCompatActivity {
             }
         }
         round.setText(String.valueOf(roundNum));
+
         //The change is recorded for use in the 2-player activity
         SharedPreferences sharedPreferences = getSharedPreferences("gyulhap_settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -61,6 +62,7 @@ public class MenuActivity extends AppCompatActivity {
         TextView time = (TextView)findViewById(R.id.time);
         int min = Integer.valueOf(time.getText().toString().substring(0,1));
         int sec30 = Integer.valueOf(time.getText().toString().substring(2,3));
+
         //The upper limit of time is 5:00, the lower limit is 0:30
         if(v.getId() == R.id.upTime){
             if(min != 5)
@@ -81,11 +83,13 @@ public class MenuActivity extends AppCompatActivity {
                 }
             }
         }
+
+        //The new time and the record associated to it is shown
         time.setText(String.valueOf(min) + ":" + String.valueOf(sec30) + "0");
         SharedPreferences sharedPreferences = getSharedPreferences("gyulhap_settings", Context.MODE_PRIVATE);
-        //The record for the time shown is also shown
         ((TextView)findViewById(R.id.record)).setText(String.valueOf(sharedPreferences.getInt("record_score_"+time.getText(),0)));
     }
+
 
     //Quits the application
     public void quitButton(View v){
@@ -93,10 +97,13 @@ public class MenuActivity extends AppCompatActivity {
         System.exit(0);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        //Gets the most recent amount of rounds and time chosen and displays them
         SharedPreferences sharedPreferences = getSharedPreferences("gyulhap_settings", Context.MODE_PRIVATE);
         ((TextView)findViewById(R.id.roundNum)).setText(String.valueOf(sharedPreferences.getInt("round_last",3)));
         ((TextView)findViewById(R.id.time)).setText(sharedPreferences.getString("single_time","1:00"));

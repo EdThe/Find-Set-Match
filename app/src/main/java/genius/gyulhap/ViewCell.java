@@ -79,8 +79,10 @@ public class ViewCell extends View {
 
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
+
         //This is the background rectangle
         Rect back = new Rect(15,15,this.getWidth()-15,this.getHeight()-15);
+
         //Changes the cell to hide the content (when game is paused)
         if(hide){
             Paint c = new Paint();
@@ -96,8 +98,10 @@ public class ViewCell extends View {
             c.setColor(Color.LTGRAY);
             //Background is drawn
             canvas.drawRect(back, backgroundColor);
-            if(chosen)
+            if(chosen) {
                 canvas.drawRect(back, chosenPaint);
+            }
+
             if(num!=0) {
                 //Draws the number of the cell on the top left
                 canvas.drawRect(cellNum, c);
@@ -113,6 +117,7 @@ public class ViewCell extends View {
                     canvas.rotate(180, this.getWidth() / 2, this.getHeight() / 2);
                 }
             }
+
             //The specific shape is drawn
             if (shape.equals("triangle")) {
                 Path p = new Path();

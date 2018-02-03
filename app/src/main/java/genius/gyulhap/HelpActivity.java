@@ -30,6 +30,8 @@ public class HelpActivity extends AppCompatActivity {
         Cell c4p2 = new Cell(Cell.Shape.TRIANGLE, Cell.Color.BLUE, Cell.Background.GRAY);
         Cell c4p3 = new Cell(Cell.Shape.CIRCLE, Cell.Color.BLUE, Cell.Background.GRAY);
 
+
+        //Gives the correct attributes to each ViewCells
         ((ViewCell)findViewById(R.id.combo1Part1)).change(c1p1);
         ((ViewCell)findViewById(R.id.combo1Part2)).change(c1p2);
         ((ViewCell)findViewById(R.id.combo1Part3)).change(c1p3);
@@ -47,7 +49,8 @@ public class HelpActivity extends AppCompatActivity {
         ((ViewCell)findViewById(R.id.combo4Part3)).change(c4p3);
     }
 
-    //Method that the back button uses
+
+    //Method that the back button uses to go back to the menu
     public void backButton(View v){
         finish();
     }

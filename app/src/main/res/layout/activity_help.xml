@@ -22,7 +22,7 @@
             android:layout_marginTop="22dp">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/firstParagraph"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
@@ -33,26 +33,28 @@
             <genius.gyulhap.ViewCell
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_below="@+id/textView3"
+                android:layout_below="@+id/firstParagraph"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="150dp"
-                android:id="@+id/viewCell" />
+                android:id="@+id/exampleCell" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/secondParagraph"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:textAlignment="center"
-                android:layout_below="@+id/viewCell"
+                android:layout_below="@+id/exampleCell"
                 android:text="A 'Combo' happens when all characteristics of 3 cells are all distinct or similar. This means that the color for the background of all 3 cells must be the same or different, and at the same time all shapes must be the same or unique, while the color of those shapes are also the same or distinct.
 Here are some examples:" />
 
+
+            <!-- Views of the first example combo -->
             <genius.gyulhap.ViewCell
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_below="@+id/textView4"
+                android:layout_below="@+id/secondParagraph"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="40dp"
                 android:id="@+id/combo1Part1" />
@@ -60,7 +62,7 @@ Here are some examples:" />
             <genius.gyulhap.ViewCell
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_below="@+id/textView4"
+                android:layout_below="@+id/secondParagraph"
                 android:layout_alignLeft="@id/combo1Part1"
                 android:layout_marginLeft="80dp"
                 android:id="@+id/combo1Part2" />
@@ -68,18 +70,10 @@ Here are some examples:" />
             <genius.gyulhap.ViewCell
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_below="@+id/textView4"
+                android:layout_below="@+id/secondParagraph"
                 android:layout_alignLeft="@id/combo1Part2"
                 android:layout_marginLeft="80dp"
                 android:id="@+id/combo1Part3" />
-
-            <genius.gyulhap.ViewCell
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_below="@+id/combo1Part1"
-                android:layout_alignParentLeft="true"
-                android:layout_marginLeft="40dp"
-                android:id="@+id/combo2Part1" />
 
             <ImageView
                 android:id="@+id/combo1Result"
@@ -90,6 +84,16 @@ Here are some examples:" />
                 android:layout_alignBottom="@id/combo1Part1"
                 android:layout_marginBottom="30dp"
                 app:srcCompat="@drawable/correcttransparent" />
+
+
+            <!-- Views of the second example combo -->
+            <genius.gyulhap.ViewCell
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_below="@+id/combo1Part1"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="40dp"
+                android:id="@+id/combo2Part1" />
 
             <genius.gyulhap.ViewCell
                 android:layout_width="80dp"
@@ -118,6 +122,8 @@ Here are some examples:" />
                 android:layout_marginBottom="30dp"
                 app:srcCompat="@drawable/correcttransparent" />
 
+
+            <!-- Views of the third example combo -->
             <genius.gyulhap.ViewCell
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -152,6 +158,8 @@ Here are some examples:" />
                 android:layout_marginBottom="30dp"
                 app:srcCompat="@drawable/correcttransparent" />
 
+
+            <!-- Views of the fourth example combo -->
             <genius.gyulhap.ViewCell
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -186,8 +194,9 @@ Here are some examples:" />
                 android:layout_marginBottom="30dp"
                 app:srcCompat="@drawable/incorrecttransparentp1" />
 
+
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/thirdParagraph"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
@@ -198,8 +207,11 @@ Here are some examples:" />
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
     </ScrollView>
+
+
+    <!-- The back button is not affected by the scrolling -->
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/backArrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="backButton"
