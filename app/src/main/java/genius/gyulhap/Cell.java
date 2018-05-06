@@ -21,9 +21,9 @@ public class Cell {
     private Background background;
 
     public Cell() {
-        shape = Shape.CIRCLE;
+        shape = Shape.RECTANGLE;
         color = Color.BLUE;
-        background = Background.WHITE;
+        background = Background.BLACK;
     }
 
     public Cell(Shape shape, Color color, Background background) {
@@ -125,5 +125,26 @@ public class Cell {
         if((first != second) && (first != third) && (second !=third))
             return true;
         return false;
+    }
+
+    public void randomize(){
+        this.shape = Shape.values()[(int)(Math.random()*3)];
+        this.background = Background.values()[(int)(Math.random()*3)];
+        this.color = Color.values()[(int)(Math.random()*3)];
+    }
+
+    public void remainingHap(Cell second, Cell affected){
+        if(this.shape == second.shape)
+            affected.shape = this.shape;
+        else
+            affected.shape = (this.shape != Shape.RECTANGLE && second.shape != Shape.RECTANGLE)?Shape.RECTANGLE:(this.shape != Shape.CIRCLE && second.shape != Shape.CIRCLE)?Shape.CIRCLE:Shape.TRIANGLE;
+        if(this.background == second.background)
+            affected.background = this.background;
+        else
+            affected.background = (this.background != Background.GRAY && second.background != Background.GRAY)?Background.GRAY:(this.background != Background.BLACK && second.background != Background.BLACK)?Background.BLACK:Background.WHITE;
+        if(this.color == second.color)
+            affected.color = this.color;
+        else
+            affected.color = (this.color != Color.BLUE && second.color != Color.BLUE)?Color.BLUE:(this.color != Color.RED && second.color != Color.RED)?Color.RED:Color.YELLOW;
     }
 }

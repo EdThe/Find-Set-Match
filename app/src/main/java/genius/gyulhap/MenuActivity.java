@@ -5,12 +5,99 @@ package genius.gyulhap;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity {
+
+    ViewCell comboP1;
+    ViewCell comboP2;
+    ViewCell comboP3;
+    Cell p1 = new Cell();
+    Cell p2 = new Cell();
+    Cell p3 = new Cell();
+    Pair<ViewCell, Cell>[] comboPieces;
+    int comboAt = 0;
+    ImageView comboAnswer;
+    MediaPlayer wrongSound;
+    MediaPlayer rightSound;
+
+    Animation shake_anim;
+    Handler casinoSystem;
+    Runnable casinoing = new Runnable() {
+        @Override
+        public void run() {
+            //Same as if statement, just wanted to try
+            /*switch(comboAt){
+                case 2:
+                case 1:
+                case 0:
+                    comboPieces[comboAt].second.randomize();
+                    comboPieces[comboAt].first.change(comboPieces[comboAt].second);
+                    animateCell(comboPieces[comboAt].first);
+                    break;
+                case 3:
+                    if(p1.isHap(p2,p3)){
+                        comboAnswer.setImageResource(R.drawable.correcttransparent);
+                        rightSound.start();
+                    }
+                    else{
+                        comboAnswer.setImageResource(R.drawable.incorrecttransparentp1);
+                        wrongSound.start();
+                    }
+                    comboAnswer.setAlpha(1f);
+                    casinoSystem.postDelayed(casinoing,1500);
+                    break;
+                case 4:
+                    animateCell(comboAnswer);
+                case 5:
+                case 6:
+                    animateCell(comboPieces[comboAt-4].first);
+                    casinoSystem.postDelayed(casinoing,500);
+                    break;
+            }*/
+            if(comboAt < 3){
+                if(comboAt == 2 && (int)(Math.random()*2) == 0)
+                    comboPieces[0].second.remainingHap(comboPieces[1].second, comboPieces[2].second);
+                else
+                    comboPieces[comboAt].second.randomize();
+                comboPieces[comboAt].first.change(comboPieces[comboAt].second);
+                animateCell(comboPieces[comboAt].first);
+                casinoSystem.postDelayed(casinoing,500);
+            }
+            else if(comboAt == 3){
+                if(p1.isHap(p2,p3)){
+                    comboAnswer.setImageResource(R.drawable.correcttransparent);
+                    rightSound.start();
+                }
+                else{
+                    comboAnswer.setImageResource(R.drawable.incorrecttransparentp1);
+                    wrongSound.start();
+                }
+                comboAnswer.setAlpha(1f);
+                comboAnswer.startAnimation(shake_anim);
+                casinoSystem.postDelayed(casinoing,1500);
+            }
+            else if(comboAt == 4){
+                animateCell(comboAnswer);
+                animateCell(comboPieces[comboAt-4].first);
+                casinoSystem.postDelayed(casinoing,500);
+            }
+            else{
+                animateCell(comboPieces[comboAt-4].first);
+                casinoSystem.postDelayed(casinoing,500);
+            }
+            comboAt = ++comboAt%7;
+        }
+    };
 
     //Starts up 2-player mode
     public void twoPlayerMode(View v){
@@ -98,15 +185,52 @@ public class MenuActivity extends AppCompatActivity {
     }
 
 
+    private void animateCell(View animated){
+        animated.animate()
+                .alpha(1f-animated.getAlpha())
+                .setDuration(1000)
+                .setListener(null);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        casinoSystem.removeCallbacks(casinoing);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        casinoSystem.postDelayed(casinoing, 500);
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
+        shake_anim = AnimationUtils.loadAnimation(this, R.anim.anim_shake);
         //Gets the most recent amount of rounds and time chosen and displays them
         SharedPreferences sharedPreferences = getSharedPreferences("gyulhap_settings", Context.MODE_PRIVATE);
         ((TextView)findViewById(R.id.roundNum)).setText(String.valueOf(sharedPreferences.getInt("round_last",3)));
         ((TextView)findViewById(R.id.time)).setText(sharedPreferences.getString("single_time","1:00"));
         ((TextView)findViewById(R.id.record)).setText(String.valueOf(sharedPreferences.getInt("record_score_"+((TextView)findViewById(R.id.time)).getText(),0)));
+        comboP1 = (ViewCell)findViewById(R.id.comboPart1);
+        comboP2 = (ViewCell)findViewById(R.id.comboPart2);
+        comboP3 = (ViewCell)findViewById(R.id.comboPart3);
+        comboAnswer = (ImageView)findViewById(R.id.comboResult);
+
+        comboPieces = new Pair[3];
+        comboPieces[0] = new Pair<>(comboP1,p1);
+        comboPieces[1] = new Pair<>(comboP2,p2);
+        comboPieces[2] = new Pair<>(comboP3,p3);
+
+        wrongSound = MediaPlayer.create(this, R.raw.bad);
+        rightSound = MediaPlayer.create(this, R.raw.good);
+
+        casinoSystem = new Handler();
     }
 }

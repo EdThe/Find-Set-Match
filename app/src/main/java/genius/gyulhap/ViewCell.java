@@ -22,18 +22,24 @@ public class ViewCell extends View {
     private Paint shapeColor = new Paint();
     //Chosen paint is the paint that surrounds the cell when it is chosen during the game
     private Paint chosenPaint = new Paint();
+    private Paint strokePaint = new Paint();
     private int num;
     private boolean hide;
     private boolean chosen = false;
     private boolean p2mode = true;
+    private Cell cellVersion;
 
     public ViewCell(Context context) {
         super(context);
         backgroundColor.setColor(Color.BLACK);
         shapeColor.setColor(Color.BLUE);
+        strokePaint.setColor(Color.BLACK);
+        strokePaint.setStrokeWidth(5);
+        strokePaint.setStyle(Style.STROKE);
         chosenPaint.setColor(Color.rgb(218,165,32));
         chosenPaint.setStyle(Style.STROKE);
         chosenPaint.setStrokeWidth(20);
+        cellVersion = new Cell(Cell.Shape.RECTANGLE, Cell.Color.BLUE, Cell.Background.BLACK);
     }
 
     //This constructor sets the cells number
@@ -44,6 +50,9 @@ public class ViewCell extends View {
         chosenPaint.setColor(Color.rgb(218,165,32));
         chosenPaint.setStyle(Style.STROKE);
         chosenPaint.setStrokeWidth(20);
+        strokePaint.setColor(Color.BLACK);
+        strokePaint.setStrokeWidth(5);
+        strokePaint.setStyle(Style.STROKE);
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
                 R.styleable.ViewCell,
@@ -100,6 +109,9 @@ public class ViewCell extends View {
             canvas.drawRect(back, backgroundColor);
             if(chosen) {
                 canvas.drawRect(back, chosenPaint);
+            }
+            else{
+                canvas.drawRect(back, strokePaint);
             }
 
             if(num!=0) {

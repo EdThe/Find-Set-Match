@@ -11,13 +11,64 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Find, Set, Match!"
-        android:textSize="45dp"
-        android:layout_marginRight="8dp"
+        android:textSize="43dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="35dp" />
+
+    <genius.gyulhap.ViewCell
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/comboPart1"
+        android:alpha="0"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/comboPart2"
+        app:layout_constraintTop_toBottomOf="@id/textGameName"
+        android:layout_marginTop="15dp" />
+
+    <genius.gyulhap.ViewCell
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/comboPart2"
+        android:alpha="0"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@id/comboPart1"
+        app:layout_constraintRight_toLeftOf="@+id/comboPart3"
+        app:layout_constraintTop_toBottomOf="@id/textGameName"
+        android:layout_marginTop="15dp" />
+
+    <genius.gyulhap.ViewCell
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/comboPart3"
+        android:alpha="0"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@id/comboPart2"
+        app:layout_constraintRight_toLeftOf="@+id/comboResult"
+        app:layout_constraintTop_toBottomOf="@id/textGameName"
+        android:layout_marginTop="15dp" />
+
+
+    <ImageView
+        android:id="@+id/comboResult"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:alpha="0"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toRightOf="@id/comboPart3"
+
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textGameName"
+        android:layout_marginTop="40dp"
+        app:srcCompat="@drawable/correcttransparent"/>
+
 
     <Button
         android:id="@+id/twoPlayerButton"
